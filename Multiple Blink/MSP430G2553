@@ -1,0 +1,46 @@
+#include <msp430.h> //msp430g2
+
+int main(void) {
+
+
+    WDTCTL = WDTPW | WDTHOLD;       // Stop watchdog timer
+
+    P1DIR |= BIT0;
+    P1DIR |= BIT6;                  // set P1.0 and P1.6 as output pins
+    long int i,j;                   // instantiate two integer for counting
+
+  i=0;
+  j=0;
+
+    unsigned volatile long int x;
+
+    while(1)                        //infinte loop
+
+    {
+            if(i>=30000)         //toggle RED LED with delay
+          {
+           P1OUT^=BIT0;
+           i=0;
+          }
+
+            else
+            {
+                i++ ;
+            }
+
+          if(j>=15000)            // toggle Green LED with half of delay
+          {
+          P1OUT^=BIT6;
+          j=0;
+         }
+          else
+          {
+              j++;
+          }
+
+
+
+     }
+
+
+}
