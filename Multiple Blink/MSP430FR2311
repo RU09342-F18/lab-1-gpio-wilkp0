@@ -1,0 +1,47 @@
+#include <msp430.h> //430FR2311
+
+int  main(void) {
+
+
+    WDTCTL = WDTPW |WDTHOLD;       // Stop watchdog timer
+    PM5CTL0 &= ~LOCKLPM5;
+
+    P1DIR |= BIT0;
+    P2DIR |= BIT0;                  //set P1.0 (LED) and  P2.0( LED) as outputs
+    long int i,j;
+
+  i=0;
+  j=0;
+
+    unsigned volatile long int x;
+
+    while(1)                        //infinte loop
+
+    {
+            if(i>=30000)         //toggle LED with delay
+          {
+           P1OUT^=BIT0;          // increment until value and then toggle LED
+           i=0;
+          }
+
+            else
+            {
+                i++ ;
+            }
+
+          if(j>=15000)            // toggle  LED with smaller delay
+          {
+          P2OUT^=BIT0;
+          j=0;
+         }
+          else
+          {
+              j++;
+          }
+
+
+
+     }
+
+
+}
