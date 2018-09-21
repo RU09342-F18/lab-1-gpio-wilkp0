@@ -1,0 +1,20 @@
+#include "msp.h" //MSP432
+
+void main(void)
+{
+	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
+
+	  P1DIR |= BIT0;                   // Set LED pin to Output
+	    P1DIR &= ~BIT1;                   // Set button pin to Input
+	    P1REN |= BIT1;                    // Enable Resistor
+	    P1OUT |= BIT1;                    // Select Pull Up Resistor
+
+	    while(1)                           // Infinite loop
+	    {
+	        if(!(P1IN & BIT1))            // If button is Pressed
+	        {
+	            __delay_cycles(200000);  // Wait to debounce
+	            P1OUT ^= BIT0;           // Toggle LED
+	        }
+	    }
+	}
